@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { createRoot } from "react-dom/client";
+import GuineaPigsForm from "../components/GuineaPigsForm";
+import GuineaPigsSlideShow from "../components/GuineaPigsSlideShow";
 
 const GUINEAPATHS = [
   "https://raw.githubusercontent.com/ARBUCHELI/PROJECTS-RESOURCES-PICTURES/master/GUINEA%20PIGS%20PICTURES/guinea-pic-1.jpg",
@@ -8,7 +10,7 @@ const GUINEAPATHS = [
   "https://raw.githubusercontent.com/ARBUCHELI/PROJECTS-RESOURCES-PICTURES/master/GUINEA%20PIGS%20PICTURES/guinea-pic-4.jpg",
 ];
 
-function GuineaPigs() {
+function GuineaPigsContainer() {
   const [currentGP, setCurrentGP] = useState(0);
 	const [favoriteGP, setFavoriteGP] = useState(0);
 	const src = GUINEAPATHS[currentGP];
@@ -34,23 +36,10 @@ function GuineaPigs() {
 
 	return (
     <>
-      <div data-testid="guineaPigsSlideShow" id="guineaPigsSlideShow">
-        <h1>COOL GUINEA PIGS</h1>
-        <img alt="Guinea Pigs Slideshow" src={src} className={currentGP === favoriteGP? "favorite" : ""}/>
-      </div>
-		  <div data-testid="guineaPigsForm" id="guineaPigsForm">	
-			  <label>Choose Your Favorite Guinea Pig:
-          <select value={favoriteGP} onChange={favoriteChangeHandler}>
-            <option value="0">Alex</option>
-            <option value="1">Izzy</option>
-            <option value="2">Brandon</option>
-            <option value="3">DJ</option>
-          </select>
-        </label>
-        <button onClick={resetFavoriteHandler}>Reset Favorite</button>
-		  </div>
-  </>
+      <GuineaPigsSlideShow src={src} isFavorite ={currentGP === favoriteGP}/>
+      <GuineaPigsForm favoriteGP={favoriteGP} onSelectFavorite={favoriteChangeHandler} onResetFavorite={resetFavoriteHandler}/>
+    </>
   );
 }
 
-export default GuineaPigs;
+export default GuineaPigsContainer;
